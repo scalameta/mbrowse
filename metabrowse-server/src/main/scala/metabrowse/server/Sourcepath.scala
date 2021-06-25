@@ -4,8 +4,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-/**
-  * A sourcepath contains `*.{class,java,scala}` files of a project.
+/** A sourcepath contains `*.{class,java,scala}` files of a project.
   *
   * @param classpath the regular JVM classpath of this project, containing
   *                  `*.class` files that can be used to compile the project.

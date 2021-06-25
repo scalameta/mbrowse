@@ -13,8 +13,7 @@ import monaco.services.ITextEditorOptions
 
 package object metabrowse {
 
-  /**
-    * Instantiate a JavaScript object conforming to a
+  /** Instantiate a JavaScript object conforming to a
     * given facade. Main usage is to create an empty
     * object and update its mutable fields.
     *

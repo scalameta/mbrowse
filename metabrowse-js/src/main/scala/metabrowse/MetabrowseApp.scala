@@ -28,10 +28,13 @@ object MetabrowseApp {
       dom.document.querySelector("#editor-theme-menu");
     val editorThemeMenu = new mdc.MDCSimpleMenu(editorThemeMenuElement);
     val editorThemeIcon = dom.document.querySelector(".editor-theme");
-    editorThemeIcon.addEventListener("click", { (event: dom.Event) =>
-      event.preventDefault()
-      editorThemeMenu.open = !editorThemeMenu.open
-    })
+    editorThemeIcon.addEventListener(
+      "click",
+      { (event: dom.Event) =>
+        event.preventDefault()
+        editorThemeMenu.open = !editorThemeMenu.open
+      }
+    )
 
     for (theme <- Seq("vs", "vs-dark", "hc-black")) {
       val themeControl = dom.document
@@ -205,8 +208,7 @@ object MetabrowseApp {
     }
   }
 
-  /**
-    * Load the Monaco Editor AMD bundle using `require`.
+  /** Load the Monaco Editor AMD bundle using `require`.
     *
     * The AMD bundle is not compatible with Webpack and must be loaded
     * dynamically at runtime to avoid errors:
@@ -216,10 +218,13 @@ object MetabrowseApp {
     val promise = Promise[Unit]()
     val mod = "vs/editor/editor.main"
     // call require via eval, so that webpack doesn't pick it during linking
-    js.Dynamic.global.eval("require")(js.Array(mod), { ctx: js.Dynamic =>
-      println("Monaco Editor loaded")
-      promise.success(())
-    }: js.ThisFunction)
+    js.Dynamic.global.eval("require")(
+      js.Array(mod),
+      { ctx: js.Dynamic =>
+        println("Monaco Editor loaded")
+        promise.success(())
+      }: js.ThisFunction
+    )
     promise.future
   }
 

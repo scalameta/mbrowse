@@ -3,8 +3,7 @@ package metabrowse.sbt
 import sbt._
 import sbt.Keys._
 
-/**
-  * Generate a staic Metabrowse site.
+/** Generate a staic Metabrowse site.
   *
   * == Usage ==
   *

@@ -1,5 +1,4 @@
-/**
-  * This code is copy/pasted from (Apache 2 licence)
+/** This code is copy/pasted from (Apache 2 licence)
   * https://github.com/alexarchambault/coursier/blob/51fefe5c29d95752ce487f60d333b1f8a91dd1b0/cache/src/main/scala/coursier/TermDisplay.scala
   *
   * which in turn was copy/pasted from (MIT licence)
@@ -40,23 +39,19 @@ object Terminal {
   implicit class Ansi(val output: Writer) extends AnyVal {
     private def control(n: Int, c: Char) = output.write("\u001b[" + n + c)
 
-    /**
-      * Move up `n` squares
+    /** Move up `n` squares
       */
     def up(n: Int): Unit = if (n > 0) control(n, 'A')
 
-    /**
-      * Move down `n` squares
+    /** Move down `n` squares
       */
     def down(n: Int): Unit = if (n > 0) control(n, 'B')
 
-    /**
-      * Move left `n` squares
+    /** Move left `n` squares
       */
     def left(n: Int): Unit = if (n > 0) control(n, 'D')
 
-    /**
-      * Clear the current line
+    /** Clear the current line
       *
       * n=0: clear from cursor to end of line
       * n=1: clear from cursor to start of line
@@ -151,7 +146,8 @@ object TermDisplay {
             s"Last update: ${formatTimestamp(remote)}"
           case (None, None) =>
             "" // ???
-        } else
+        }
+      else
         currentTimeOpt match {
           case Some(current) =>
             s"Checking for updates since ${formatTimestamp(current)}"
@@ -269,7 +265,9 @@ object TermDisplay {
 
           val extra0 =
             if (extra.length > baseExtraWidth)
-              extra.take((baseExtraWidth max (extra.length - overflow)) - 1) + "…"
+              extra.take(
+                (baseExtraWidth max (extra.length - overflow)) - 1
+              ) + "…"
             else
               extra
 
@@ -310,9 +308,8 @@ object TermDisplay {
         case Some(Message.Update) =>
           val (done0, downloads0) = downloads.synchronized {
             val q = doneQueue.toVector
-              .filter {
-                case (url, _) =>
-                  !url.endsWith(".sha1") && !url.endsWith(".md5")
+              .filter { case (url, _) =>
+                !url.endsWith(".sha1") && !url.endsWith(".md5")
               }
               .sortBy { case (url, _) => url }
 
@@ -396,8 +393,8 @@ object TermDisplay {
 
           out.flush()
           Thread.sleep(fallbackRefreshInterval)
-          fallbackDisplayLoop(previous ++ downloads0.map {
-            case (url, _) => url
+          fallbackDisplayLoop(previous ++ downloads0.map { case (url, _) =>
+            url
           })
       }
 

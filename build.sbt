@@ -110,7 +110,8 @@ lazy val server = project
       import java.util.zip._
       import scala.collection.JavaConverters._
       val base = (Compile / packageBin).value
-      val updated = base.getParentFile / s"${base.getName.stripSuffix(".jar")}-with-resources.jar"
+      val updated =
+        base.getParentFile / s"${base.getName.stripSuffix(".jar")}-with-resources.jar"
 
       val fos = new FileOutputStream(updated)
       val zos = new ZipOutputStream(fos)

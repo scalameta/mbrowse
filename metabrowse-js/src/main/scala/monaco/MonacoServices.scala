@@ -4,8 +4,7 @@ import scala.scalajs.js
 import monaco.editor.{IEditor, IEditorOptions, ITextModel}
 import monaco.editor.Editor.IEditorViewState
 
-/**
-  * Service declarations to hook into the Monaco Editor.
+/** Service declarations to hook into the Monaco Editor.
   *
   * Out of the box the Monaco Editor uses a simple set of
   * [[services https://github.com/Microsoft/vscode/blob/a460624f88b4dd3a03d9633e0860c0078c00462f/src/vs/editor/standalone/browser/simpleServices.ts]]
@@ -79,8 +78,7 @@ package services {
     ): Promise[IEditor]
   }
 
-  /**
-    * Service to dynamically load models.
+  /** Service to dynamically load models.
     */
   trait ITextModelService extends js.Object {
     def createModelReference(
