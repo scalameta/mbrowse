@@ -28,18 +28,18 @@ class PakoSuite extends FunSuite {
       workspace.toProtoString.linesIterator.toList.sorted.mkString("\n").trim
     val expected =
       s"""
-         |filenames: "paiges/core/src/main/${JsTestUtil.scalaVersionDir}/org/typelevel/paiges/ScalaVersionCompat.scala"
-         |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Chunk.scala"
-         |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Doc.scala"
-         |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Document.scala"
-         |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Style.scala"
-         |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/package.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/ColorTest.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/DocumentTests.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/Generators.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/JsonTest.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/PaigesScalacheckTest.scala"
-         |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/PaigesTest.scala"
+        |filenames: "paiges/core/src/main/${JsTestUtil.scalaVersionDir}/org/typelevel/paiges/ScalaVersionCompat.scala"
+        |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Chunk.scala"
+        |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Doc.scala"
+        |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Document.scala"
+        |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/Style.scala"
+        |filenames: "paiges/core/src/main/scala/org/typelevel/paiges/package.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/ColorTest.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/DocumentTests.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/Generators.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/JsonTest.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/PaigesScalacheckTest.scala"
+        |filenames: "paiges/core/src/test/scala/org/typelevel/paiges/PaigesTest.scala"
       """.stripMargin.trim
     assert(obtained == expected)
   }

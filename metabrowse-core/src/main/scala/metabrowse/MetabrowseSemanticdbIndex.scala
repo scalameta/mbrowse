@@ -17,9 +17,9 @@ trait MetabrowseSemanticdbIndex {
   def definition(symbol: String): Option[d.Position] =
     document.occurrences.collectFirst {
       case s.SymbolOccurrence(
-          Some(r),
-          `symbol`,
-          s.SymbolOccurrence.Role.DEFINITION
+            Some(r),
+            `symbol`,
+            s.SymbolOccurrence.Role.DEFINITION
           ) =>
         r.toPosition(document.uri)
     }
@@ -50,9 +50,9 @@ trait MetabrowseSemanticdbIndex {
           val names = document.occurrences.filter(_.symbol == sym)
           val definition = names.collectFirst {
             case s.SymbolOccurrence(
-                Some(r),
-                _,
-                s.SymbolOccurrence.Role.DEFINITION
+                  Some(r),
+                  _,
+                  s.SymbolOccurrence.Role.DEFINITION
                 ) =>
               r.toPosition(document.uri)
           }
@@ -60,9 +60,9 @@ trait MetabrowseSemanticdbIndex {
             document.uri -> d.Ranges(
               names.collect {
                 case s.SymbolOccurrence(
-                    Some(r),
-                    _,
-                    s.SymbolOccurrence.Role.REFERENCE
+                      Some(r),
+                      _,
+                      s.SymbolOccurrence.Role.REFERENCE
                     ) =>
                   r.toDocRange
               }

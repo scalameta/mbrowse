@@ -108,11 +108,15 @@ object Promise extends js.Object {
   def join[T1, T2](
       promises: js.Tuple2[T1 | PromiseLike[T1], T2 | PromiseLike[T2]]
   ): Promise[js.Tuple2[T1, T2]] = js.native
-  def join[T](promises: js.Array[T | PromiseLike[T]]): Promise[js.Array[T]] = js.native
+  def join[T](
+      promises: js.Array[T | PromiseLike[T]]
+  ): Promise[js.Array[T]] = js.native
   def join[T](
       promises: js.Dictionary[T | PromiseLike[T]]
   ): Promise[js.Dictionary[T]] = js.native
-  def any[T](promises: js.Array[T | PromiseLike[T]]): Promise[js.Any] = js.native
+  def any[T](
+      promises: js.Array[T | PromiseLike[T]]
+  ): Promise[js.Any] = js.native
   def wrap[T](value: PromiseLike[T]): Promise[T] = js.native
   def wrapError[T](error: Error): Promise[T] = js.native
 }
@@ -413,8 +417,14 @@ class Range protected () extends IRange {
   def getEndPosition(): Position = js.native
   def getStartPosition(): Position = js.native
   override def toString(): String = js.native
-  def setEndPosition(endLineNumber: Double, endColumn: Double): Range = js.native
-  def setStartPosition(startLineNumber: Double, startColumn: Double): Range = js.native
+  def setEndPosition(
+      endLineNumber: Double,
+      endColumn: Double
+  ): Range = js.native
+  def setStartPosition(
+      startLineNumber: Double,
+      startColumn: Double
+  ): Range = js.native
   def collapseToStart(): Range = js.native
 }
 
@@ -477,7 +487,10 @@ class Selection protected () extends Range {
 @JSGlobal("monaco.Selection")
 object Selection extends js.Object {
   def selectionsEqual(a: ISelection, b: ISelection): Boolean = js.native
-  def fromPositions(start: IPosition, end: IPosition = ???): Selection = js.native
+  def fromPositions(
+      start: IPosition,
+      end: IPosition = ???
+  ): Selection = js.native
   def liftSelection(sel: ISelection): Selection = js.native
   def selectionsArrEqual(
       a: js.Array[ISelection],
@@ -596,7 +609,10 @@ package editor {
         handler: ICommandHandler,
         context: String
     ): String = js.native
-    def createContextKey[T](key: String, defaultValue: T): IContextKey[T] = js.native
+    def createContextKey[T](
+        key: String,
+        defaultValue: T
+    ): IContextKey[T] = js.native
     def addAction(descriptor: IActionDescriptor): IDisposable = js.native
   }
 
@@ -607,7 +623,10 @@ package editor {
         handler: ICommandHandler,
         context: String
     ): String = js.native
-    def createContextKey[T](key: String, defaultValue: T): IContextKey[T] = js.native
+    def createContextKey[T](
+        key: String,
+        defaultValue: T
+    ): IContextKey[T] = js.native
     def addAction(descriptor: IActionDescriptor): IDisposable = js.native
     override def getOriginalEditor(): IStandaloneCodeEditor = js.native
     override def getModifiedEditor(): IStandaloneCodeEditor = js.native
@@ -726,7 +745,9 @@ package editor {
   trait IModelDecorationOptions extends js.Object {
     var stickiness: TrackedRangeStickiness = js.native
     var className: String = js.native
-    var glyphMarginHoverMessage: IMarkdownString | js.Array[IMarkdownString] = js.native
+    var glyphMarginHoverMessage: IMarkdownString | js.Array[
+      IMarkdownString
+    ] = js.native
     var hoverMessage: IMarkdownString | js.Array[IMarkdownString] = js.native
     var isWholeLine: Boolean = js.native
     var zIndex: Double = js.native
@@ -880,7 +901,10 @@ package editor {
         eol: EndOfLinePreference = ???,
         preserveBOM: Boolean = ???
     ): Double = js.native
-    def getValueInRange(range: IRange, eol: EndOfLinePreference = ???): String = js.native
+    def getValueInRange(
+        range: IRange,
+        eol: EndOfLinePreference = ???
+    ): String = js.native
     def getValueLengthInRange(range: IRange): Double = js.native
     def getLineCount(): Double = js.native
     def getLineContent(lineNumber: Double): String = js.native
@@ -893,7 +917,10 @@ package editor {
     def getLineFirstNonWhitespaceColumn(lineNumber: Double): Double = js.native
     def getLineLastNonWhitespaceColumn(lineNumber: Double): Double = js.native
     def validatePosition(position: IPosition): Position = js.native
-    def modifyPosition(position: IPosition, offset: Double): Position = js.native
+    def modifyPosition(
+        position: IPosition,
+        offset: Double
+    ): Position = js.native
     def validateRange(range: IRange): Range = js.native
     def getOffsetAt(position: IPosition): Double = js.native
     def getPositionAt(offset: Double): Position = js.native
@@ -1014,7 +1041,9 @@ package editor {
 
   @js.native
   trait ICursorStateComputerData extends js.Object {
-    def getInverseEditOperations(): js.Array[IIdentifiedSingleEditOperation] = js.native
+    def getInverseEditOperations(): js.Array[
+      IIdentifiedSingleEditOperation
+    ] = js.native
     def getTrackedSelection(id: String): Selection = js.native
   }
 
@@ -1152,7 +1181,10 @@ package editor {
     def getVisibleColumnFromPosition(position: IPosition): Double = js.native
     def getPosition(): Position = js.native
     def setPosition(position: IPosition): Unit = js.native
-    def revealLine(lineNumber: Double, scrollType: ScrollType = ???): Unit = js.native
+    def revealLine(
+        lineNumber: Double,
+        scrollType: ScrollType = ???
+    ): Unit = js.native
     def revealLineInCenter(
         lineNumber: Double,
         scrollType: ScrollType = ???
@@ -1195,14 +1227,27 @@ package editor {
         endLineNumber: Double,
         scrollType: ScrollType = ???
     ): Unit = js.native
-    def revealRange(range: IRange, scrollType: ScrollType = ???): Unit = js.native
-    def revealRangeInCenter(range: IRange, scrollType: ScrollType = ???): Unit = js.native
-    def revealRangeAtTop(range: IRange, scrollType: ScrollType = ???): Unit = js.native
+    def revealRange(
+        range: IRange,
+        scrollType: ScrollType = ???
+    ): Unit = js.native
+    def revealRangeInCenter(
+        range: IRange,
+        scrollType: ScrollType = ???
+    ): Unit = js.native
+    def revealRangeAtTop(
+        range: IRange,
+        scrollType: ScrollType = ???
+    ): Unit = js.native
     def revealRangeInCenterIfOutsideViewport(
         range: IRange,
         scrollType: ScrollType = ???
     ): Unit = js.native
-    def trigger(source: String, handlerId: String, payload: js.Any): Unit = js.native
+    def trigger(
+        source: String,
+        handlerId: String,
+        payload: js.Any
+    ): Unit = js.native
     def getModel(): IEditorModel = js.native
     def setModel(model: IEditorModel): Unit = js.native
   }
@@ -1846,8 +1891,12 @@ package editor {
     def onDidChangeModelDecorations(
         listener: js.Function1[IModelDecorationsChangedEvent, Unit]
     ): IDisposable = js.native
-    def onDidFocusEditorText(listener: js.Function0[Unit]): IDisposable = js.native
-    def onDidBlurEditorText(listener: js.Function0[Unit]): IDisposable = js.native
+    def onDidFocusEditorText(
+        listener: js.Function0[Unit]
+    ): IDisposable = js.native
+    def onDidBlurEditorText(
+        listener: js.Function0[Unit]
+    ): IDisposable = js.native
     def onDidFocusEditor(listener: js.Function0[Unit]): IDisposable = js.native
     def onDidBlurEditor(listener: js.Function0[Unit]): IDisposable = js.native
     def onMouseUp(
@@ -1865,8 +1914,12 @@ package editor {
     def onMouseLeave(
         listener: js.Function1[IEditorMouseEvent, Unit]
     ): IDisposable = js.native
-    def onKeyUp(listener: js.Function1[IKeyboardEvent, Unit]): IDisposable = js.native
-    def onKeyDown(listener: js.Function1[IKeyboardEvent, Unit]): IDisposable = js.native
+    def onKeyUp(
+        listener: js.Function1[IKeyboardEvent, Unit]
+    ): IDisposable = js.native
+    def onKeyDown(
+        listener: js.Function1[IKeyboardEvent, Unit]
+    ): IDisposable = js.native
     def onDidLayoutChange(
         listener: js.Function1[EditorLayoutInfo, Unit]
     ): IDisposable = js.native
@@ -1896,8 +1949,13 @@ package editor {
         edits: js.Array[IIdentifiedSingleEditOperation],
         endCursoState: js.Array[Selection] = ???
     ): Boolean = js.native
-    def executeCommands(source: String, commands: js.Array[ICommand]): Unit = js.native
-    def getLineDecorations(lineNumber: Double): js.Array[IModelDecoration] = js.native
+    def executeCommands(
+        source: String,
+        commands: js.Array[ICommand]
+    ): Unit = js.native
+    def getLineDecorations(
+        lineNumber: Double
+    ): js.Array[IModelDecoration] = js.native
     def deltaDecorations(
         oldDecorations: js.Array[String],
         newDecorations: js.Array[IModelDeltaDecoration]
@@ -1905,7 +1963,10 @@ package editor {
     def getLayoutInfo(): EditorLayoutInfo = js.native
     def getVisibleRanges(): js.Array[Range] = js.native
     def getTopForLineNumber(lineNumber: Double): Double = js.native
-    def getTopForPosition(lineNumber: Double, column: Double): Double = js.native
+    def getTopForPosition(
+        lineNumber: Double,
+        column: Double
+    ): Double = js.native
     def getDomNode(): HTMLElement = js.native
     def addContentWidget(widget: IContentWidget): Unit = js.native
     def layoutContentWidget(widget: IContentWidget): Unit = js.native
@@ -1916,9 +1977,15 @@ package editor {
     def changeViewZones(
         callback: js.Function1[IViewZoneChangeAccessor, Unit]
     ): Unit = js.native
-    def getOffsetForColumn(lineNumber: Double, column: Double): Double = js.native
+    def getOffsetForColumn(
+        lineNumber: Double,
+        column: Double
+    ): Double = js.native
     def render(): Unit = js.native
-    def getTargetAtClientPoint(clientX: Double, clientY: Double): IMouseTarget = js.native
+    def getTargetAtClientPoint(
+        clientX: Double,
+        clientY: Double
+    ): IMouseTarget = js.native
     def getScrolledVisiblePosition(position: IPosition): js.Any = js.native
     def applyFontInfo(target: HTMLElement): Unit = js.native
   }
@@ -2016,7 +2083,9 @@ package editor {
     def onDidChangeModelLanguage(
         listener: js.Function1[js.Any, Unit]
     ): IDisposable = js.native
-    def createWebWorker[T](opts: IWebWorkerOptions): MonacoWebWorker[T] = js.native
+    def createWebWorker[T](
+        opts: IWebWorkerOptions
+    ): MonacoWebWorker[T] = js.native
     def colorizeElement(
         domNode: HTMLElement,
         options: IColorizerElementOptions
@@ -2031,8 +2100,14 @@ package editor {
         lineNumber: Double,
         tabSize: Double = ???
     ): String = js.native
-    def tokenize(text: String, languageId: String): js.Array[js.Array[Token]] = js.native
-    def defineTheme(themeName: String, themeData: IStandaloneThemeData): Unit = js.native
+    def tokenize(
+        text: String,
+        languageId: String
+    ): js.Array[js.Array[Token]] = js.native
+    def defineTheme(
+        themeName: String,
+        themeData: IStandaloneThemeData
+    ): Unit = js.native
     def setTheme(themeName: String): Unit = js.native
     type BuiltinTheme = String
     type IColors = js.Dictionary[String]
@@ -2153,7 +2228,9 @@ package languages {
         position: Position,
         token: CancellationToken,
         context: CompletionContext
-    ): js.Array[CompletionItem] | Thenable[js.Array[CompletionItem]] | CompletionList | Thenable[
+    ): js.Array[CompletionItem] | Thenable[
+      js.Array[CompletionItem]
+    ] | CompletionList | Thenable[
       CompletionList
     ] = js.native
     def resolveCompletionItem(
@@ -2350,7 +2427,9 @@ package languages {
         model: editor.ITextModel,
         position: Position,
         token: CancellationToken
-    ): js.Array[DocumentHighlight] | Thenable[js.Array[DocumentHighlight]] = js.native
+    ): js.Array[DocumentHighlight] | Thenable[
+      js.Array[DocumentHighlight]
+    ] = js.native
   }
 
   @js.native
@@ -2450,7 +2529,9 @@ package languages {
     def provideDocumentSymbols(
         model: editor.ITextModel,
         token: CancellationToken
-    ): js.Array[SymbolInformation] | Thenable[js.Array[SymbolInformation]] // = js.native
+    ): js.Array[SymbolInformation] | Thenable[
+      js.Array[SymbolInformation]
+    ] // = js.native
   }
 
   @js.native
@@ -2540,12 +2621,16 @@ package languages {
     def provideDocumentColors(
         model: editor.ITextModel,
         token: CancellationToken
-    ): js.Array[IColorInformation] | Thenable[js.Array[IColorInformation]] = js.native
+    ): js.Array[IColorInformation] | Thenable[
+      js.Array[IColorInformation]
+    ] = js.native
     def provideColorPresentations(
         model: editor.ITextModel,
         colorInfo: IColorInformation,
         token: CancellationToken
-    ): js.Array[IColorPresentation] | Thenable[js.Array[IColorPresentation]] = js.native
+    ): js.Array[IColorPresentation] | Thenable[
+      js.Array[IColorPresentation]
+    ] = js.native
   }
 
   @js.native
@@ -2643,7 +2728,9 @@ package languages {
     def provideCodeLenses(
         model: editor.ITextModel,
         token: CancellationToken
-    ): js.Array[ICodeLensSymbol] | Thenable[js.Array[ICodeLensSymbol]] = js.native
+    ): js.Array[ICodeLensSymbol] | Thenable[
+      js.Array[ICodeLensSymbol]
+    ] = js.native
     def resolveCodeLens(
         model: editor.ITextModel,
         codeLens: ICodeLensSymbol,
@@ -2680,7 +2767,10 @@ package languages {
       @JSBracketAccess
       def apply(name: String): js.Array[IMonarchLanguageRule] = js.native
       @JSBracketAccess
-      def update(name: String, v: js.Array[IMonarchLanguageRule]): Unit = js.native
+      def update(
+          name: String,
+          v: js.Array[IMonarchLanguageRule]
+      ): Unit = js.native
     }
   }
 

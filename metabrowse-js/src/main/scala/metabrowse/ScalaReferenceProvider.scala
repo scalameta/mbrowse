@@ -24,9 +24,8 @@ class ScalaReferenceProvider(index: MetabrowseSemanticdbIndex)
       sym <- index.fetchSymbol(offset)
     } yield {
       val references = sym.map(_.references).getOrElse(Map.empty)
-      val locations = references.flatMap {
-        case (filename, ranges) =>
-          ranges.ranges.map(_.toPosition(filename)).map(resolveLocation)
+      val locations = references.flatMap { case (filename, ranges) =>
+        ranges.ranges.map(_.toPosition(filename)).map(resolveLocation)
       }
       js.Array[Location](locations.toSeq: _*)
     }

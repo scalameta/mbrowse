@@ -88,8 +88,8 @@ class MetabrowseServer(
         sourcepath
       )
       state.set(newState)
-      sourcepath.sources.foreach(
-        jar => index.addSourceJar(AbsolutePath(jar), dialect)
+      sourcepath.sources.foreach(jar =>
+        index.addSourceJar(AbsolutePath(jar), dialect)
       )
     }
   }
@@ -160,16 +160,16 @@ class MetabrowseServer(
           withInputStream(classLoader.getResourceAsStream(name)) { is =>
             if (is == null) None
             else Some(InputStreamIO.readBytes(is))
-          } else {
+          }
+        else {
           val it =
             for {
               path <- classPath.iterator
               zf = zipFile(path)
               entry <- Option(zf.getEntry(name)).iterator
-            } yield
-              withInputStream(zf.getInputStream(entry))(
-                InputStreamIO.readBytes(_)
-              )
+            } yield withInputStream(zf.getInputStream(entry))(
+              InputStreamIO.readBytes(_)
+            )
           it.toStream.headOption
         }
       bytesOpt.map(new String(_, StandardCharsets.UTF_8))
@@ -310,29 +310,30 @@ class MetabrowseServer(
         logger.warn(s"no source file: $path")
         None
       }
-      doc <- try {
-        val timeout = TimeUnit.SECONDS.toMillis(10)
-        val textDocument = if (path.endsWith(".java")) {
-          val input = Input.VirtualFile(path, text)
-          Mtags.index(input, dialect)
-        } else {
-          InteractiveSemanticdb.toTextDocument(
-            global,
-            text,
-            filename,
-            timeout,
-            List(
-              "-P:semanticdb:synthetics:on",
-              "-P:semanticdb:symbols:none"
+      doc <-
+        try {
+          val timeout = TimeUnit.SECONDS.toMillis(10)
+          val textDocument = if (path.endsWith(".java")) {
+            val input = Input.VirtualFile(path, text)
+            Mtags.index(input, dialect)
+          } else {
+            InteractiveSemanticdb.toTextDocument(
+              global,
+              text,
+              filename,
+              timeout,
+              List(
+                "-P:semanticdb:synthetics:on",
+                "-P:semanticdb:symbols:none"
+              )
             )
-          )
+          }
+          Some(textDocument)
+        } catch {
+          case NonFatal(e) =>
+            logger.error(s"compile error: $filename", e)
+            None
         }
-        Some(textDocument)
-      } catch {
-        case NonFatal(e) =>
-          logger.error(s"compile error: $filename", e)
-          None
-      }
     } yield TextDocuments(List(doc.withText(text)))
   }.getOrElse(TextDocuments())
 
@@ -390,8 +391,7 @@ class MetabrowseServer(
 
 object MetabrowseServer {
 
-  /**
-    * Basic command-line interface to start metabrowse-server.
+  /** Basic command-line interface to start metabrowse-server.
     *
     * Examples: {{{
     *

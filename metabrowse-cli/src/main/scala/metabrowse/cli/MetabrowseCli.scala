@@ -178,8 +178,10 @@ class CliRunner(classpath: Seq[AbsolutePath], options: MetabrowseOptions) {
             attrs: BasicFileAttributes
         ): FileVisitResult = {
           val filename = file.getFileName.toString
-          if (filename.endsWith(".semanticdb") ||
-            filename.endsWith(".semanticdb.json")) {
+          if (
+            filename.endsWith(".semanticdb") ||
+            filename.endsWith(".semanticdb.json")
+          ) {
             files += AbsolutePath(file)
           }
           FileVisitResult.CONTINUE
@@ -246,15 +248,15 @@ class CliRunner(classpath: Seq[AbsolutePath], options: MetabrowseOptions) {
                   if !sym.endsWith(".") && !sym.endsWith("#") =>
               // Do nothing, local symbol.
               case s.SymbolOccurrence(
-                  Some(r),
-                  sym,
-                  s.SymbolOccurrence.Role.DEFINITION
+                    Some(r),
+                    sym,
+                    s.SymbolOccurrence.Role.DEFINITION
                   ) =>
                 addDefinition(sym, r.toPosition(document.uri))
               case s.SymbolOccurrence(
-                  Some(r),
-                  sym,
-                  s.SymbolOccurrence.Role.REFERENCE
+                    Some(r),
+                    sym,
+                    s.SymbolOccurrence.Role.REFERENCE
                   ) =>
                 addReference(document.uri, r.toDocRange, sym)
               case _ =>
@@ -282,11 +284,10 @@ class CliRunner(classpath: Seq[AbsolutePath], options: MetabrowseOptions) {
 
   def symbolIndexByTopLevelSymbol: util.Map[String, List[d.SymbolIndex]] = {
     val byToplevel = new util.HashMap[String, List[d.SymbolIndex]]()
-    symbols.asScala.foreach {
-      case (sym, ref) =>
-        val toplevel = sym.toplevelPackage
-        val old = byToplevel.getOrDefault(toplevel, Nil)
-        byToplevel.put(toplevel, ref.get() :: old)
+    symbols.asScala.foreach { case (sym, ref) =>
+      val toplevel = sym.toplevelPackage
+      val old = byToplevel.getOrDefault(toplevel, Nil)
+      byToplevel.put(toplevel, ref.get() :: old)
     }
     byToplevel
   }
@@ -296,24 +297,23 @@ class CliRunner(classpath: Seq[AbsolutePath], options: MetabrowseOptions) {
       Files.createDirectory(symbolRoot.toNIO)
       val symbolsMap = symbols.asScala
       val byToplevel = symbolIndexByTopLevelSymbol.asScala
-      byToplevel.foreach {
-        case (sym, indexes) =>
-          tick()
-          val actualIndexes = indexes.map { symbolIndex =>
-            val actualIndex = symbolIndex.definition match {
-              case Some(_) => updateReferencesForType(symbolsMap, symbolIndex)
-              case None => updateDefinitionsForTerm(symbolsMap, symbolIndex)
-            }
-            actualIndex
+      byToplevel.foreach { case (sym, indexes) =>
+        tick()
+        val actualIndexes = indexes.map { symbolIndex =>
+          val actualIndex = symbolIndex.definition match {
+            case Some(_) => updateReferencesForType(symbolsMap, symbolIndex)
+            case None => updateDefinitionsForTerm(symbolsMap, symbolIndex)
           }
-          val symbolIndexes =
-            d.SymbolIndexes(actualIndexes.filter(_.definition.isDefined))
-          if (symbolIndexes.indexes.nonEmpty) {
-            val filename = sym.symbolIndexPath.stripSuffix(".gz")
-            val out = symbolRoot.resolve(filename)
-            Files.createDirectories(out.toNIO.getParent)
-            overwrite(out.toNIO, symbolIndexes.toByteArray)
-          }
+          actualIndex
+        }
+        val symbolIndexes =
+          d.SymbolIndexes(actualIndexes.filter(_.definition.isDefined))
+        if (symbolIndexes.indexes.nonEmpty) {
+          val filename = sym.symbolIndexPath.stripSuffix(".gz")
+          val out = symbolRoot.resolve(filename)
+          Files.createDirectories(out.toNIO.getParent)
+          overwrite(out.toNIO, symbolIndexes.toByteArray)
+        }
       }
     }
 
